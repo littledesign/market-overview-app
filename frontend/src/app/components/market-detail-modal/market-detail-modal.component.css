@@ -1,0 +1,294 @@
+/* =============================================================
+   Modal Backdrop — full-screen overlay with blur
+   ============================================================= */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease-out;
+}
+
+@media (min-width: 640px) {
+  .modal-backdrop {
+    align-items: center;
+  }
+}
+
+/* =============================================================
+   Modal Panel
+   ============================================================= */
+
+.modal-panel {
+  width: 100%;
+  max-width: 32rem;
+  background-color: var(--modal-bg);
+  border-radius: 16px 16px 0 0;
+  border: 1px solid var(--modal-border);
+  box-shadow: var(--shadow-md);
+  animation: slideUp 0.3s ease-out;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .modal-panel {
+    border-radius: 16px;
+  }
+}
+
+/* =============================================================
+   Modal Header
+   ============================================================= */
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem;
+  border-bottom: 1px solid var(--border-primary);
+  transition: border-color 0.3s ease;
+}
+
+.modal-header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.company-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: #ffffff;
+  padding: 4px;
+  object-fit: contain;
+}
+
+.company-logo-placeholder {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--bg-tertiary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.company-logo-placeholder span {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.modal-symbol {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.modal-company-name {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin: 0;
+  transition: color 0.3s ease;
+}
+
+.modal-close-btn {
+  color: var(--text-tertiary);
+  background: none;
+  border: none;
+  padding: 0.5rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.modal-close-btn:hover {
+  color: var(--text-primary);
+  background-color: var(--bg-tertiary);
+}
+
+.close-icon {
+  width: 20px;
+  height: 20px;
+}
+
+/* =============================================================
+   Loading / Error States
+   ============================================================= */
+
+.modal-loading {
+  padding: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--modal-spinner-border);
+  border-top-color: var(--modal-spinner-active);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+.modal-error {
+  padding: 2rem;
+  text-align: center;
+}
+
+.error-text {
+  color: var(--negative-red);
+  margin: 0;
+}
+
+.error-subtext {
+  font-size: 14px;
+  color: var(--text-tertiary);
+  margin: 0.25rem 0 0;
+}
+
+/* =============================================================
+   Modal Body — price hero + detail grid + profile
+   ============================================================= */
+
+.modal-body {
+  padding: 1.25rem;
+}
+
+.price-hero {
+  margin-bottom: 1.5rem;
+}
+
+.hero-price {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+.hero-price.up { color: var(--positive-green); }
+.hero-price.down { color: var(--negative-red); }
+
+.hero-change {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.hero-arrow {
+  width: 16px;
+  height: 16px;
+}
+
+.hero-change-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color 0.3s ease;
+}
+
+.hero-change-text.up { color: var(--positive-green); }
+.hero-change-text.down { color: var(--negative-red); }
+
+.hero-change:has(.hero-change-text.up) .hero-arrow { color: var(--positive-green); }
+.hero-change:has(.hero-change-text.down) .hero-arrow { color: var(--negative-red); }
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.detail-cell {
+  background-color: var(--modal-detail-bg);
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: background-color 0.3s ease;
+}
+
+.detail-label {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease;
+}
+
+.detail-value {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 2px;
+  transition: color 0.3s ease;
+}
+
+.detail-value.high { color: var(--positive-green); }
+.detail-value.low { color: var(--negative-red); }
+
+.profile-section {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-primary);
+  transition: border-color 0.3s ease;
+}
+
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+.profile-value {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  transition: color 0.3s ease;
+}
+
+.profile-link {
+  font-size: 14px;
+  color: var(--accent-blue);
+  text-decoration: none;
+  margin-top: 2px;
+  display: inline-block;
+  transition: color 0.15s ease;
+}
+
+.profile-link:hover {
+  color: var(--accent-blue-hover);
+}
+
+/* =============================================================
+   Animations
+   ============================================================= */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

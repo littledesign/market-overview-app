@@ -1,0 +1,164 @@
+/* Import Tailwind CSS — gives us utility classes like flex, p-4, etc. */
+@import "tailwindcss";
+
+/* SF Pro Display as the primary font, with sensible fallbacks.
+   -apple-system / BlinkMacSystemFont let Safari & Chrome on Apple
+   devices resolve San Francisco automatically. On Windows/Android
+   the stack falls through to Inter, then the OS default sans-serif. */
+@theme {
+  --font-sans: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Inter', system-ui, sans-serif;
+}
+
+/* =============================================================
+   THEME: CSS Custom Properties
+   These variables power all colors throughout the app.
+   The ThemeService toggles .light-theme / .dark-theme on <html>.
+   ============================================================= */
+
+/* ── Light Mode (default) ── */
+:root,
+.light-theme {
+  /* Backgrounds */
+  --bg-primary: #ffffff;
+  --bg-secondary: #e8f4f8;           /* Light blue page background */
+  --bg-tertiary: #f3f4f6;
+
+  /* Dark navy header — stays the same in both themes */
+  --header-bg: #1c2a5a;
+  --header-text: #ffffff;
+  --header-text-secondary: #b8c5e0;
+
+  /* Text */
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --text-tertiary: #9ca3af;
+
+  /* Borders */
+  --border-primary: #e5e7eb;
+  --border-secondary: #d1d5db;
+
+  /* Market indicators — green/red stay the same across themes */
+  --positive-green: #10b981;
+  --positive-green-light: #d1fae5;
+  --negative-red: #ef4444;
+  --negative-red-light: #fee2e2;
+  --neutral-gray: #9ca3af;
+
+  /* Accent (links, interactive elements) */
+  --accent-blue: #3b82f6;
+  --accent-blue-hover: #2563eb;
+
+  /* Quote card backgrounds (the watchlist stock cards) */
+  --card-up-bg: rgba(209, 250, 229, 0.4);
+  --card-up-border: rgba(16, 185, 129, 0.3);
+  --card-up-bg-hover: rgba(209, 250, 229, 0.7);
+  --card-up-border-hover: rgba(16, 185, 129, 0.5);
+  --card-down-bg: rgba(254, 226, 226, 0.4);
+  --card-down-border: rgba(239, 68, 68, 0.3);
+  --card-down-bg-hover: rgba(254, 226, 226, 0.7);
+  --card-down-border-hover: rgba(239, 68, 68, 0.5);
+  --card-neutral-bg: #f3f4f6;
+  --card-neutral-border: #e5e7eb;
+  --card-neutral-bg-hover: #e5e7eb;
+  --card-neutral-border-hover: #d1d5db;
+  --card-symbol-color: #111827;
+  --card-price-neutral: #374151;
+
+  /* Market status badge */
+  --status-open-bg: rgba(16, 185, 129, 0.1);
+  --status-closed-bg: rgba(239, 68, 68, 0.1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  /* Scrollbar */
+  --scrollbar-thumb: #d1d5db;
+  --scrollbar-thumb-hover: #9ca3af;
+
+  /* Modal */
+  --modal-bg: #ffffff;
+  --modal-border: #e5e7eb;
+  --modal-detail-bg: #f3f4f6;
+  --modal-spinner-border: #d1d5db;
+  --modal-spinner-active: #111827;
+}
+
+/* ── Dark Mode ── */
+.dark-theme {
+  /* Backgrounds */
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --bg-tertiary: #374151;
+
+  /* Dark navy header — same in dark mode */
+  --header-bg: #1c2a5a;
+  --header-text: #ffffff;
+  --header-text-secondary: #b8c5e0;
+
+  /* Text */
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-tertiary: #9ca3af;
+
+  /* Borders */
+  --border-primary: #374151;
+  --border-secondary: #4b5563;
+
+  /* Market indicators */
+  --positive-green: #10b981;
+  --positive-green-light: rgba(16, 185, 129, 0.15);
+  --negative-red: #ef4444;
+  --negative-red-light: rgba(239, 68, 68, 0.15);
+  --neutral-gray: #9ca3af;
+
+  /* Accent */
+  --accent-blue: #60a5fa;
+  --accent-blue-hover: #3b82f6;
+
+  /* Quote card backgrounds */
+  --card-up-bg: rgba(5, 46, 22, 0.3);
+  --card-up-border: rgba(20, 83, 45, 0.5);
+  --card-up-bg-hover: rgba(5, 46, 22, 0.5);
+  --card-up-border-hover: rgba(21, 128, 61, 0.5);
+  --card-down-bg: rgba(69, 10, 10, 0.3);
+  --card-down-border: rgba(127, 29, 29, 0.5);
+  --card-down-bg-hover: rgba(69, 10, 10, 0.5);
+  --card-down-border-hover: rgba(185, 28, 28, 0.5);
+  --card-neutral-bg: #1f2937;
+  --card-neutral-border: #374151;
+  --card-neutral-bg-hover: #374151;
+  --card-neutral-border-hover: #4b5563;
+  --card-symbol-color: #ffffff;
+  --card-price-neutral: #d1d5db;
+
+  /* Market status badge */
+  --status-open-bg: rgba(16, 185, 129, 0.15);
+  --status-closed-bg: rgba(239, 68, 68, 0.15);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  /* Scrollbar */
+  --scrollbar-thumb: #374151;
+  --scrollbar-thumb-hover: #4b5563;
+
+  /* Modal */
+  --modal-bg: #1f2937;
+  --modal-border: #374151;
+  --modal-detail-bg: rgba(55, 65, 81, 0.5);
+  --modal-spinner-border: #4b5563;
+  --modal-spinner-active: #f9fafb;
+}
+
+/* ── Global body transition for smooth theme switching ── */
+body {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin: 0;
+  padding: 0;
+}
