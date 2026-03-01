@@ -1,0 +1,84 @@
+<app-navbar />
+
+<main class="hub-main">
+  <!-- Markets — existing module, rendered as-is -->
+  <section id="markets" class="hub-row">
+    <app-market-strip />
+  </section>
+
+  <!-- News & Trends -->
+  <section id="news" class="hub-row">
+    <app-section-header
+      title="News & Trends"
+      description="Curated articles from top UX, design, and tech publications."
+    />
+    <app-news-row />
+  </section>
+
+  <!-- Quiz / Survey -->
+  <section id="quiz" class="hub-row">
+    <app-section-header
+      title="Quiz & Learning"
+      description="Test your knowledge on UX, web dev, and AI topics."
+    />
+    <app-quiz-row />
+  </section>
+
+  <!-- Knowledge Hub -->
+  <section id="knowledge" class="hub-row">
+    <app-section-header
+      title="Knowledge Hub"
+      description="Templates, playbooks, prompts, and demos to accelerate your work."
+    />
+    <app-knowledge-row />
+  </section>
+
+  <!-- Crit Calendar + Skills Directory — side by side -->
+  <section id="crits-skills" class="hub-row">
+    <div class="two-col-grid">
+      <div class="grid-cell">
+        <app-section-header
+          title="Crit Calendar"
+          description="Upcoming critique sessions and booking."
+        />
+        <app-crits-row />
+      </div>
+      <div class="grid-cell">
+        <app-section-header
+          title="Skills Directory"
+          description="Find people and their expertise across the team."
+        />
+        <app-skills-row />
+      </div>
+    </div>
+  </section>
+
+  <!-- World Clocks — full width -->
+  <section id="clocks" class="hub-row">
+    <app-section-header
+      title="World Clocks"
+      description="Current time across key office locations."
+    />
+    <app-clocks-row />
+  </section>
+
+  <!-- Weather + Pomodoro — 50/50 split -->
+  <section id="weather-pomodoro" class="hub-row">
+    <div class="two-col-grid">
+      <div class="grid-cell" id="weather">
+        <app-section-header
+          title="Weather"
+          description="Galway and saved locations."
+        />
+        <app-weather-row />
+      </div>
+      <div class="grid-cell" id="pomodoro">
+        <app-section-header
+          title="Doro"
+          description="Focus timer, task queue, and stats."
+        />
+        <app-pomodoro-row />
+      </div>
+    </div>
+  </section>
+</main>

@@ -4,7 +4,6 @@ import { Subscription } from 'rxjs';
 import { MarketService } from '../../services/market.service';
 import { MarketQuote, IndexQuote } from '../../models/market.model';
 import { MarketDetailModalComponent } from '../market-detail-modal/market-detail-modal.component';
-import { ThemeToggleComponent } from '../theme-toggle/theme-toggle.component';
 import { InvestmentSearchModalComponent } from '../investment-search-modal/investment-search-modal.component';
 
 /**
@@ -58,7 +57,6 @@ const DEFAULT_WATCHLIST = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'META', 'TSL
   imports: [
     CommonModule,
     MarketDetailModalComponent,
-    ThemeToggleComponent,
     InvestmentSearchModalComponent,
   ],
   templateUrl: './market-strip.component.html',
@@ -89,8 +87,9 @@ export class MarketStripComponent implements OnInit, OnDestroy {
     return this.marketService.refreshInterval / 1000;
   }
 
-  // ── Computed stats for the Stock Details info box ──
+  // ── Computed stats ──
   averageChange = 0;
+  watchlistAverageChange = 0;
   marketSessionStatus = '';
   isMarketOpen = false;
 
@@ -313,10 +312,18 @@ export class MarketStripComponent implements OnInit, OnDestroy {
     ];
     if (allQuotes.length === 0) {
       this.averageChange = 0;
-      return;
+    } else {
+      const sum = allQuotes.reduce((acc, val) => acc + val, 0);
+      this.averageChange = sum / allQuotes.length;
     }
-    const sum = allQuotes.reduce((acc, val) => acc + val, 0);
-    this.averageChange = sum / allQuotes.length;
+
+    const watchlistChanges = this.stockQuotes.map((q) => q.percentChange || 0);
+    if (watchlistChanges.length === 0) {
+      this.watchlistAverageChange = 0;
+    } else {
+      const wlSum = watchlistChanges.reduce((acc, val) => acc + val, 0);
+      this.watchlistAverageChange = wlSum / watchlistChanges.length;
+    }
   }
 
   private updateMarketSessionStatus(): void {

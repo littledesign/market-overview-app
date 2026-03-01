@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, timer, switchMap, shareReplay, Subject, startWith, map, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { MarketQuote, IndexQuote, CompanyProfile, SearchResult } from '../models/market.model';
+import { environment } from '../../environments/environment';
 
 /**
  * MarketService talks to our Node.js backend API.
@@ -19,8 +20,7 @@ import { MarketQuote, IndexQuote, CompanyProfile, SearchResult } from '../models
   providedIn: 'root',
 })
 export class MarketService {
-  // Our backend API base URL
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = environment.apiBaseUrl;
 
   // How often to refresh data (in milliseconds) — 60 seconds
   readonly refreshInterval = 60_000;

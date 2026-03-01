@@ -1,0 +1,102 @@
+<!-- Filters row -->
+<div class="news-filters">
+  <label class="filter-toggle">
+    <input type="checkbox" [(ngModel)]="aiOnly" (change)="onFilterChange()" />
+    <span>AI-related only</span>
+  </label>
+
+  <select class="filter-select" [(ngModel)]="selectedSource" (change)="onFilterChange()">
+    <option value="">All sources</option>
+    @for (source of sources; track source) {
+      <option [value]="source">{{ source }}</option>
+    }
+  </select>
+</div>
+
+<!-- Loading state -->
+@if (loading) {
+  <div class="news-status">
+    <p>Loading articles...</p>
+  </div>
+}
+
+<!-- Error state -->
+@if (error && !loading) {
+  <div class="news-status error">
+    <p>Failed to load articles. The backend may be offline.</p>
+  </div>
+}
+
+<!-- Empty state -->
+@if (!loading && !error && sourceGroups.length === 0) {
+  <div class="news-status">
+    <p>No articles match your filters.</p>
+  </div>
+}
+
+<!-- Source cards grid — 3 columns on desktop -->
+@if (!loading && !error && sourceGroups.length > 0) {
+  <div class="news-source-grid">
+    @for (group of sourceGroups; track group.source) {
+      <div class="source-card">
+        <h3 class="source-card-title">{{ group.source }}</h3>
+        <ul class="source-card-list">
+          @for (article of group.items; track article.id) {
+            <li class="source-card-item">
+              @if (isTopArticle(group, article)) {
+                <div class="article-image-wrap">
+                  @if (shouldShowImage(article)) {
+                    <img
+                      class="article-image"
+                      [src]="getImageUrl(article)"
+                      [alt]="article.title"
+                      loading="lazy"
+                      (error)="onImageError(article.url)"
+                    />
+                  } @else {
+                    <div class="article-image-placeholder"></div>
+                  }
+                </div>
+              }
+              <a class="source-card-link" [href]="article.url" target="_blank" rel="noopener noreferrer">
+                {{ article.title }}
+              </a>
+              @if (getDescription(article)) {
+                <p class="source-card-desc">{{ getDescription(article) }}</p>
+              }
+              <div class="source-card-meta">
+                <span class="source-card-date">{{ formatDate(article.publishedAt) }}</span>
+                <button
+                  class="summary-btn"
+                  (click)="openSummary(article); $event.preventDefault()"
+                  type="button"
+                  [disabled]="summaryLoading"
+                >
+                  Create AI summary
+                </button>
+              </div>
+            </li>
+          }
+        </ul>
+      </div>
+    }
+  </div>
+}
+
+<!-- AI Summary Modal -->
+@if (showSummaryModal && summaryArticle) {
+  <div class="modal-backdrop" (click)="closeSummaryModal()">
+    <div class="modal-content summary-modal" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeSummaryModal()">&times;</button>
+      <h2 class="modal-title">{{ summaryArticle.title }}</h2>
+      <p class="modal-meta">{{ summaryArticle.source }} · {{ formatDate(summaryArticle.publishedAt) }}</p>
+      @if (summaryLoading) {
+        <p class="modal-loading">Generating summary…</p>
+      } @else if (summaryError) {
+        <p class="modal-error">{{ summaryError }}</p>
+      } @else if (summaryText) {
+        <div class="modal-summary">{{ summaryText }}</div>
+      }
+    </div>
+  </div>
+}

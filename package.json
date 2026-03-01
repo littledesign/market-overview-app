@@ -1,0 +1,15 @@
+{
+  "name": "hub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Run both frontend and backend dev servers",
+  "scripts": {
+    "dev": "concurrently -n backend,frontend -c blue,green \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && node serve-dev.mjs",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

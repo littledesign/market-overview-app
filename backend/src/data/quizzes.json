@@ -1,0 +1,191 @@
+[
+  {
+    "id": "ux-fundamentals",
+    "title": "UX Design Fundamentals",
+    "topic": "UX Design",
+    "estimatedMinutes": 5,
+    "questions": [
+      {
+        "id": "q1",
+        "text": "What does the term 'affordance' mean in UX design?",
+        "options": [
+          "The cost of implementing a feature",
+          "A visual cue that suggests how an object should be used",
+          "The time it takes a user to complete a task",
+          "A type of user testing method"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q2",
+        "text": "Which of the following is a key principle of Jakob Nielsen's 10 usability heuristics?",
+        "options": [
+          "Always use the latest technology",
+          "Visibility of system status",
+          "Maximize the number of features",
+          "Use complex navigation patterns"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q3",
+        "text": "What is the primary purpose of a wireframe?",
+        "options": [
+          "To showcase the final visual design",
+          "To test server performance",
+          "To outline the structure and layout of a page",
+          "To write production-ready code"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": "q4",
+        "text": "What does 'Fitts\\'s Law' describe?",
+        "options": [
+          "The time to recall items from memory",
+          "The relationship between target size, distance, and time to reach the target",
+          "The maximum number of items in short-term memory",
+          "The speed of page load times"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q5",
+        "text": "In a usability test, what is a 'think-aloud' protocol?",
+        "options": [
+          "The facilitator explains each step to the participant",
+          "Participants verbalize their thoughts while completing tasks",
+          "The team discusses findings after the test",
+          "An automated tool that reads page content aloud"
+        ],
+        "correctIndex": 1
+      }
+    ]
+  },
+  {
+    "id": "web-dev-basics",
+    "title": "Web Development Basics",
+    "topic": "Web Development",
+    "estimatedMinutes": 5,
+    "questions": [
+      {
+        "id": "q1",
+        "text": "What does HTML stand for?",
+        "options": [
+          "Hyper Text Markup Language",
+          "High Tech Modern Language",
+          "Hyper Transfer Markup Language",
+          "Home Tool Markup Language"
+        ],
+        "correctIndex": 0
+      },
+      {
+        "id": "q2",
+        "text": "Which CSS property is used to change the text color of an element?",
+        "options": [
+          "font-color",
+          "text-color",
+          "color",
+          "foreground-color"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": "q3",
+        "text": "What is the purpose of the 'alt' attribute on an <img> tag?",
+        "options": [
+          "To set the image size",
+          "To provide alternative text for accessibility and when the image fails to load",
+          "To add a tooltip on hover",
+          "To specify the image format"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q4",
+        "text": "Which of the following is NOT a JavaScript data type?",
+        "options": [
+          "String",
+          "Boolean",
+          "Float",
+          "Undefined"
+        ],
+        "correctIndex": 2
+      },
+      {
+        "id": "q5",
+        "text": "What does 'responsive design' mean?",
+        "options": [
+          "A design that responds to user clicks faster",
+          "A design that adapts its layout to different screen sizes",
+          "A design that uses only CSS Grid",
+          "A design that loads in under one second"
+        ],
+        "correctIndex": 1
+      }
+    ]
+  },
+  {
+    "id": "ai-literacy",
+    "title": "AI Literacy for Designers",
+    "topic": "Artificial Intelligence",
+    "estimatedMinutes": 5,
+    "questions": [
+      {
+        "id": "q1",
+        "text": "What is a 'large language model' (LLM)?",
+        "options": [
+          "A database that stores many languages",
+          "An AI model trained on vast amounts of text to understand and generate language",
+          "A tool for translating between programming languages",
+          "A large dictionary application"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q2",
+        "text": "What is 'prompt engineering'?",
+        "options": [
+          "Building physical computing hardware",
+          "The practice of crafting effective inputs to get better outputs from AI models",
+          "Engineering faster database queries",
+          "Designing loading screen animations"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q3",
+        "text": "Which of these is an ethical concern with AI-generated content?",
+        "options": [
+          "It loads too slowly",
+          "It can perpetuate biases present in training data",
+          "It uses too much CSS",
+          "It only works in English"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q4",
+        "text": "What does 'hallucination' mean in the context of AI?",
+        "options": [
+          "The AI creates visual illusions",
+          "The AI generates plausible-sounding but factually incorrect information",
+          "The AI stops responding",
+          "The AI switches languages unexpectedly"
+        ],
+        "correctIndex": 1
+      },
+      {
+        "id": "q5",
+        "text": "How can designers best use AI tools in their workflow?",
+        "options": [
+          "Replace all manual work entirely",
+          "Never use AI — it's unreliable",
+          "Use AI to augment ideation, drafting, and research while applying human judgment",
+          "Only use AI for final production assets"
+        ],
+        "correctIndex": 2
+      }
+    ]
+  }
+]

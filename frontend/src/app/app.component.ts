@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
-import { MarketStripComponent } from './components/market-strip/market-strip.component';
+import { RouterOutlet } from '@angular/router';
 
-/**
- * Root component of the app.
- * Simply displays the market strip at the top of the page.
- */
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [MarketStripComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'Market Data';
+  title = 'UX Desk';
 }

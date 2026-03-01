@@ -1,21 +1,34 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
+  "description": "Intranet Hub API server",
+  "main": "src/server.ts",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node dist/server.bundled.cjs",
+    "dev": "node dev.mjs",
+    "build": "node dev.mjs --build-only",
+    "dev:tsx": "tsx watch src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.78.0",
+    "@supabase/supabase-js": "^2.49.1",
     "axios": "^1.13.5",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^4.22.1",
-    "yahoo-finance2": "^3.13.0"
+    "rss-parser": "^3.13.0",
+    "ts-node": "^10.9.2",
+    "yahoo-finance2": "^2.14.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.0",
+    "tsx": "^3.14.0",
+    "typescript": "~5.7.2"
   }
 }

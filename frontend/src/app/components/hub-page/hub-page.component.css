@@ -1,0 +1,34 @@
+.hub-main {
+  padding-top: 56px; /* offset for fixed navbar */
+  min-height: 100vh;
+}
+
+.hub-row {
+  padding: 1.5rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  scroll-margin-top: 64px; /* so anchor links don't hide behind navbar */
+}
+
+/* Add a subtle separator between rows */
+.hub-row + .hub-row {
+  border-top: 1px solid var(--border-primary);
+}
+
+/* Two-column grid — Crit Calendar + Skills, Weather + Pomodoro */
+.two-col-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.grid-cell {
+  min-width: 0; /* Prevent grid overflow on narrow viewports */
+}
+
+/* Stack only on small screens (phones) — keep 50/50 on tablets and up */
+@media (max-width: 640px) {
+  .two-col-grid {
+    grid-template-columns: 1fr;
+  }
+}

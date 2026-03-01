@@ -19,8 +19,20 @@ interface CacheEntry {
 const CACHE_TTL_MS = 60 * 60 * 1000; // 1 hour
 const METADATA_CACHE = new Map<string, CacheEntry>();
 
+/** Resolve relative image URL against article base URL */
+function resolveImageUrl(imageUrl: string | null, baseUrl: string): string | null {
+  if (!imageUrl || imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
+    return imageUrl;
+  }
+  try {
+    return new URL(imageUrl, baseUrl).href;
+  } catch {
+    return imageUrl;
+  }
+}
+
 /** Extract og:image, twitter:image, or first img from meta tags via regex */
-function extractFromHtml(html: string): ArticleMetadata {
+function extractFromHtml(html: string, baseUrl: string): ArticleMetadata {
   let imageUrl: string | null = null;
   let description: string | null = null;
 
@@ -31,7 +43,8 @@ function extractFromHtml(html: string): ArticleMetadata {
     || html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["']/i)?.[1];
   const firstImg = html.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
 
-  imageUrl = ogImage1 || ogImage2 || twitterImage || firstImg || null;
+  let rawImageUrl = ogImage1 || ogImage2 || twitterImage || firstImg || null;
+  imageUrl = resolveImageUrl(rawImageUrl, baseUrl);
 
   // og:description or meta description
   const ogDesc1 = html.match(/<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i)?.[1];
@@ -67,7 +80,7 @@ export async function fetchArticleMetadata(url: string): Promise<ArticleMetadata
     });
 
     const html = typeof res.data === 'string' ? res.data : '';
-    const data = extractFromHtml(html);
+    const data = extractFromHtml(html, url);
     METADATA_CACHE.set(url, { data, fetchedAt: Date.now() });
     return data;
   } catch (err) {

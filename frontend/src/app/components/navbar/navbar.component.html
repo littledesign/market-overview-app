@@ -1,0 +1,105 @@
+<!-- Sticky top navbar -->
+<nav class="navbar">
+  <div class="navbar-inner">
+    <!-- Brand -->
+    <div class="navbar-brand">
+      <span class="brand-name">UX Desk</span>
+    </div>
+
+    <!-- Desktop nav links -->
+    <div class="navbar-links">
+      @for (link of navLinks; track link.fragment) {
+        <button class="nav-link" (click)="scrollTo(link.fragment)">
+          {{ link.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Right side: theme toggle + auth -->
+    <div class="navbar-actions">
+      <app-theme-toggle />
+
+      @if (isLoggedIn) {
+        <span class="user-email">{{ userEmail }}</span>
+        <button class="auth-btn logout-btn" (click)="handleSignOut()">Sign Out</button>
+      } @else {
+        <button class="auth-btn login-btn" (click)="openAuthModal()">Sign In</button>
+      }
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" (click)="toggleMobileMenu()" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24">
+          @if (mobileMenuOpen) {
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          } @else {
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          }
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu dropdown -->
+  @if (mobileMenuOpen) {
+    <div class="mobile-menu">
+      @for (link of navLinks; track link.fragment) {
+        <button class="mobile-link" (click)="scrollTo(link.fragment)">
+          {{ link.label }}
+        </button>
+      }
+    </div>
+  }
+</nav>
+
+<!-- Auth modal -->
+@if (showAuthModal) {
+  <div class="modal-backdrop" (click)="closeAuthModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeAuthModal()">&times;</button>
+      <h2 class="modal-title">{{ authMode === 'login' ? 'Sign In' : 'Create Account' }}</h2>
+
+      <div class="auth-form">
+        <label class="form-label">Email</label>
+        <input
+          type="email"
+          class="form-input"
+          [value]="authEmail"
+          (input)="onAuthEmailInput($event)"
+          placeholder="you@example.com"
+        />
+
+        <label class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-input"
+          [value]="authPassword"
+          (input)="onAuthPasswordInput($event)"
+          placeholder="••••••••"
+          (keydown.enter)="handleAuth()"
+        />
+
+        @if (authError) {
+          <p class="auth-error">{{ authError }}</p>
+        }
+
+        <button
+          class="submit-btn"
+          (click)="handleAuth()"
+          [disabled]="authLoading || !authEmail || !authPassword"
+        >
+          {{ authLoading ? 'Please wait...' : (authMode === 'login' ? 'Sign In' : 'Sign Up') }}
+        </button>
+
+        <p class="toggle-auth">
+          @if (authMode === 'login') {
+            Don't have an account?
+            <button class="text-link" (click)="authMode = 'signup'">Sign up</button>
+          } @else {
+            Already have an account?
+            <button class="text-link" (click)="authMode = 'login'">Sign in</button>
+          }
+        </p>
+      </div>
+    </div>
+  </div>
+}

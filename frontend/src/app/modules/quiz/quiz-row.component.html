@@ -1,0 +1,98 @@
+<!-- QUIZ LIST VIEW -->
+@if (viewMode === 'list') {
+  @if (loading) {
+    <div class="quiz-status">Loading quizzes...</div>
+  }
+  @if (error && !loading) {
+    <div class="quiz-status error">Failed to load quizzes.</div>
+  }
+  @if (!loading && !error && quizzes.length === 0) {
+    <div class="quiz-status">No quizzes available yet.</div>
+  }
+  @if (!loading && !error && quizzes.length > 0) {
+    <div class="quiz-grid">
+      @for (quiz of quizzes; track quiz.id) {
+        <div class="quiz-card">
+          <span class="quiz-topic">{{ quiz.topic }}</span>
+          <h3 class="quiz-title">{{ quiz.title }}</h3>
+          <div class="quiz-meta">
+            <span>{{ quiz.questionCount }} questions</span>
+            <span>~{{ quiz.estimatedMinutes }} min</span>
+          </div>
+          <button class="start-btn" (click)="startQuiz(quiz.id)">Start Quiz</button>
+        </div>
+      }
+    </div>
+  }
+}
+
+<!-- QUIZ TAKING VIEW -->
+@if (viewMode === 'taking' && activeQuiz && currentQuestion) {
+  <div class="quiz-taking">
+    <div class="quiz-progress">
+      <button class="back-link" (click)="backToList()">&larr; Back to quizzes</button>
+      <span class="progress-text">
+        Question {{ currentQuestionIndex + 1 }} of {{ totalQuestions }}
+      </span>
+    </div>
+
+    <h3 class="question-text">{{ currentQuestion.text }}</h3>
+
+    <div class="options-list">
+      @for (option of currentQuestion.options; track $index) {
+        <button
+          class="option-btn"
+          [class.selected]="isSelected($index)"
+          (click)="selectAnswer($index)"
+        >
+          <span class="option-letter">{{ 'ABCD'[$index] }}</span>
+          {{ option }}
+        </button>
+      }
+    </div>
+
+    <div class="quiz-nav">
+      <button
+        class="nav-btn"
+        (click)="prevQuestion()"
+        [disabled]="currentQuestionIndex === 0"
+      >Previous</button>
+
+      @if (currentQuestionIndex < totalQuestions - 1) {
+        <button class="nav-btn primary" (click)="nextQuestion()">Next</button>
+      } @else {
+        <button class="nav-btn submit" (click)="submitQuiz()">Submit</button>
+      }
+    </div>
+  </div>
+}
+
+<!-- RESULTS VIEW -->
+@if (viewMode === 'results' && activeQuiz) {
+  <div class="quiz-results">
+    <div class="results-header">
+      <h3 class="results-title">{{ activeQuiz.title }} — Results</h3>
+      <div class="score-badge">
+        {{ score }} / {{ totalQuestions }}
+      </div>
+    </div>
+
+    <div class="results-list">
+      @for (q of activeQuiz.questions; track q.id) {
+        <div class="result-item" [class.correct]="isCorrect(q.id)" [class.wrong]="!isCorrect(q.id)">
+          <p class="result-question">{{ q.text }}</p>
+          <p class="result-answer">
+            Your answer: <strong>{{ q.options[answers[q.id]] || 'No answer' }}</strong>
+          </p>
+          @if (!isCorrect(q.id)) {
+            <p class="result-correct">
+              Correct: <strong>{{ q.options[q.correctIndex] }}</strong>
+            </p>
+          }
+        </div>
+      }
+    </div>
+
+    <button class="nav-btn primary" (click)="backToList()">Back to Quizzes</button>
+  </div>
+}
